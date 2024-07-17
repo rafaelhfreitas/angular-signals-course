@@ -1,4 +1,4 @@
-import {afterNextRender, Component, computed, effect, inject, Injector, signal} from '@angular/core';
+import {afterNextRender, Component, computed, effect, EffectRef, inject, Injector, signal} from '@angular/core';
 import {CoursesService} from "../services/courses.service";
 import {Course, sortCoursesBySeqNo} from "../models/course.model";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
@@ -26,20 +26,26 @@ type Counter = {
 })
 export class HomeComponent {
 
-
   counter = signal(0);
-
-  injector = inject(Injector)
-
+  effectRef: EffectRef | null = null;
 
   constructor() {
 
+      this.effectRef = effect((onCleanup) => {
 
-      effect(() => {
-        console.log(`counter value ${this.counter()}`)
-        this.increment();
-      }, {
-        allowSignalWrites: false})
+        const counter = this.counter();
+
+        const timeout = setTimeout(
+          () => {
+            console.log(`counter value ${counter}`)
+          }, 1000
+        )
+
+        onCleanup( () => {
+          console.log('Calling clean up');
+          clearTimeout(timeout);
+        })
+      })
 
 
   }
@@ -63,6 +69,13 @@ export class HomeComponent {
    this.counter.update(counter => counter + 1);
 
     
+  }
+
+
+  cleanUp(){
+
+    this.effectRef?.destroy();
+
   }
 
 }
