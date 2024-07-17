@@ -25,30 +25,22 @@ type Counter = {
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent  {
 
 
     courses = signal<Course[]>([]);
 
-    coursesService = inject(CoursesServiceWithFetch);
+    coursesService = inject(CoursesService);
 
 
     constructor() {
 
-      // you can use ngOnInit to start load or constructor or afterNextRender
-      //this.loadCourses().then(() => console.log(`All courses are loaded: `, this.courses()));
-
-      afterNextRender(() => {
-        this.loadCourses().then(() => console.log(`All courses are loaded: `, this.courses()));
-      }) 
+    
+      this.loadCourses().then(() => console.log(`All courses are loaded: `, this.courses()));
   
     }
     
     
-    ngOnInit(): void {
-      // you can use ngOnInit to start load or constructor or afterNextRender
-      //this.loadCourses().then(() => console.log(`All courses are loaded: `, this.courses()));
-    }
 
 
     async loadCourses() {
