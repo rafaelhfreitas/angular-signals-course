@@ -11,6 +11,7 @@ import {toObservable, toSignal, outputToObservable, outputFromObservable} from "
 @Component({
   selector: 'home',
   standalone: true,
+  signals: true,
   imports: [
     MatTabGroup,
     MatTab,
@@ -22,12 +23,12 @@ import {toObservable, toSignal, outputToObservable, outputFromObservable} from "
 export class HomeComponent {
 
 
-  counter = signal(0);
+  counter = signal(0).asReadonly();
 
 
   increment() {
 
-    this.counter.update(value => value + 1);
+    this.counter.update(counter => counter + 1);
     
   }
 
