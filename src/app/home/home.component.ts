@@ -34,12 +34,20 @@ export class HomeComponent implements OnInit {
 
 
     constructor() {
-      this.loadCourses().then(() => console.log(`All courses are loaded: `, this.courses()));
+
+      // you can use ngOnInit to start load or constructor or afterNextRender
+      //this.loadCourses().then(() => console.log(`All courses are loaded: `, this.courses()));
+
+      afterNextRender(() => {
+        this.loadCourses().then(() => console.log(`All courses are loaded: `, this.courses()));
+      }) 
+  
     }
-
-
+    
+    
     ngOnInit(): void {
-      
+      // you can use ngOnInit to start load or constructor or afterNextRender
+      //this.loadCourses().then(() => console.log(`All courses are loaded: `, this.courses()));
     }
 
 
