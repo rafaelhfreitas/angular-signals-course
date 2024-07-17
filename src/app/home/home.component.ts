@@ -27,26 +27,39 @@ type Counter = {
 })
 export class HomeComponent  {
 
+    #courses = signal<Course[]>([]);
 
-    courses = signal<Course[]>([]);
+    beginnerCourses = computed(() => {
+      const courses = this.#courses();
+      return courses.filter(course => course.category === 'BEGINNER')
+    })
+
+
+    advancedCourses = computed(() => {
+      const courses = this.#courses();
+      return courses.filter(course => course.category === 'ADVANCED')
+    })
+
+
 
     coursesService = inject(CoursesService);
 
-
     constructor() {
 
-    
-      this.loadCourses().then(() => console.log(`All courses are loaded: `, this.courses()));
+      effect(() => {
+        console.log(`Beginner courses`, this.beginnerCourses());
+        console.log(`Advanced courses`, this.advancedCourses());
+
+      })
+
+      this.loadCourses().then(() => console.log(`All courses are loaded: `, this.#courses()));
   
     }
     
-    
-
-
     async loadCourses() {
       try{
         const courses = await this.coursesService.loadAllCourses();
-        this.courses.set(courses);
+        this.#courses.set(courses);
       } 
       catch(error) {
         alert(`Error loading courses!`);
