@@ -11,5 +11,11 @@ import {GetCoursesResponse} from "../models/get-courses.response";
 })
 export class CoursesService {
 
+  async loadCoursesAllCourses(): Promise<Course[]> {
+
+    return [];
+
+  }
+
 
 }
