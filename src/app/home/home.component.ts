@@ -34,14 +34,13 @@ export class HomeComponent {
 
   constructor() {
 
-    afterNextRender(() => {
 
       effect(() => {
         console.log(`counter value ${this.counter()}`)
+        this.increment();
       }, {
-        injector: this.injector})
+        allowSignalWrites: false})
 
-    })
 
   }
 
