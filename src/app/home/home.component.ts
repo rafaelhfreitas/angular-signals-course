@@ -1,4 +1,4 @@
-import {afterNextRender, Component, computed, effect, EffectRef, inject, Injector, signal} from '@angular/core';
+import {afterNextRender, Component, computed, effect, EffectRef, inject, Injector, OnInit, signal} from '@angular/core';
 import {CoursesService} from "../services/courses.service";
 import {Course, sortCoursesBySeqNo} from "../models/course.model";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
@@ -25,14 +25,37 @@ type Counter = {
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
 
     courses = signal<Course[]>([]);
 
-    coursesService = inject(CoursesService);
+    coursesService = inject(CoursesServiceWithFetch);
 
-    
+
+    constructor() {
+      this.loadCourses().then(() => console.log(`All courses are loaded: `, this.courses()));
+    }
+
+
+    ngOnInit(): void {
+      
+    }
+
+
+    async loadCourses() {
+      try{
+        const courses = await this.coursesService.loadAllCourses();
+        this.courses.set(courses);
+      } 
+      catch(error) {
+        alert(`Error loading courses!`);
+        console.error(error);
+
+      }
+    }
+
+
 
 
 }
