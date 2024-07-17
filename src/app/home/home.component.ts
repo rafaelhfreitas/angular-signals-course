@@ -8,10 +8,14 @@ import {MessagesService} from "../messages/messages.service";
 import {catchError, from, throwError} from "rxjs";
 import {toObservable, toSignal, outputToObservable, outputFromObservable} from "@angular/core/rxjs-interop";
 
+
+type Counter = {
+  value: number
+}
+
 @Component({
   selector: 'home',
   standalone: true,
-  signals: true,
   imports: [
     MatTabGroup,
     MatTab,
@@ -23,12 +27,20 @@ import {toObservable, toSignal, outputToObservable, outputFromObservable} from "
 export class HomeComponent {
 
 
-  counter = signal(0).asReadonly();
+  counter = signal<Counter>({
+    value: 100
+  });
 
 
   increment() {
 
-    this.counter.update(counter => counter + 1);
+   // this.counter.update(counter => counter + 1);
+
+   this.counter.update(counter => ({
+      ...counter,
+      value: counter.value + 1
+    }))
+
     
   }
 
