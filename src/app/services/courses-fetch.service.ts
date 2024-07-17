@@ -30,7 +30,7 @@ export class CoursesServiceWithFetch {
       body: JSON.stringify(course)
     })
 
-    return await response.json();
+    return response.json();
 
   }
 
@@ -47,7 +47,7 @@ export class CoursesServiceWithFetch {
       });
 
 
-      return await response.json();
+      return response.json();
 
 
   }

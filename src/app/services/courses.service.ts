@@ -26,7 +26,7 @@ export class CoursesService {
   async createCourse(course: Partial<Course>): Promise<Course> {
     const course$ = this.http.post<Course>(`${this.env.apiRoot}/courses}`, course);
 
-    return await firstValueFrom(course$);
+    return firstValueFrom(course$);
 
   }
 
@@ -34,7 +34,7 @@ export class CoursesService {
   async saveCourse(courseId: string, changes: Partial<Course>): Promise<Course> {
     const course$ = this.http.put<Course>(`${this.env.apiRoot}/courses/${courseId}}`, changes);
 
-    return await firstValueFrom(course$);
+    return firstValueFrom(course$);
 
   }
 
@@ -43,7 +43,7 @@ export class CoursesService {
 
     const delete$ = this.http.delete(`${this.env.apiRoot}/courses/${courseId}}`);
 
-    return await firstValueFrom(delete$);
+    return firstValueFrom(delete$);
 
 
   }
