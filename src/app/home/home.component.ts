@@ -32,9 +32,20 @@ export class HomeComponent {
   });
 
 
-  increment() {
+  values = signal<number[]>([0]);
 
-   // this.counter.update(counter => counter + 1);
+
+  append() {
+
+    this.values.update(values => ([
+          ...values,
+          values[values.length - 1] + 1 
+    ]))
+
+  }
+
+
+  increment() {
 
    this.counter.update(counter => ({
       ...counter,
