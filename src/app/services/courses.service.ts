@@ -24,7 +24,7 @@ export class CoursesService {
   }
 
   async createCourse(course: Partial<Course>): Promise<Course> {
-    const course$ = this.http.post<Course>(`${this.env.apiRoot}/courses}`, course);
+    const course$ = this.http.post<Course>(`${this.env.apiRoot}/courses`, course);
 
     return firstValueFrom(course$);
 
@@ -41,7 +41,7 @@ export class CoursesService {
 
   async deleteCourse(courseId: string) {
 
-    const delete$ = this.http.delete(`${this.env.apiRoot}/courses/${courseId}}`);
+    const delete$ = this.http.delete(`${this.env.apiRoot}/courses/${courseId}`);
 
     return firstValueFrom(delete$);
 
