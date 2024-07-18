@@ -30,7 +30,7 @@ export class HomeComponent  {
     #courses = signal<Course[]>([]);
     dialog = inject(MatDialog);
     coursesService = inject(CoursesService);
-    loadingService = inject(LoadingService);
+    messagesService = inject(MessagesService);
 
     beginnerCourses = computed(() => {
       const courses = this.#courses();
@@ -62,7 +62,7 @@ export class HomeComponent  {
         this.#courses.set(courses.sort(sortCoursesBySeqNo));
       } 
       catch(error) {
-        alert(`Error loading courses!`);
+        this.messagesService.showMessage(`Error loading courses!`, "error")
         console.error(error);
 
       }
