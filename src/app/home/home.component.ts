@@ -27,6 +27,7 @@ type Counter = {
 })
 export class HomeComponent  {
 
+
     #courses = signal<Course[]>([]);
 
     beginnerCourses = computed(() => {
@@ -55,6 +56,7 @@ export class HomeComponent  {
       this.loadCourses().then(() => console.log(`All courses are loaded: `, this.#courses()));
   
     }
+
     
     async loadCourses() {
       try{
@@ -66,6 +68,17 @@ export class HomeComponent  {
         console.error(error);
 
       }
+    }
+
+
+    onCourseUpdated(updatedCourse: Course) {
+
+      const courses = this.#courses();
+
+      const newCourses = courses.map(course => course.id === updatedCourse.id ?  updatedCourse : course);
+
+      this.#courses.set(newCourses);
+
     }
 
 
