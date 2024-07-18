@@ -24,6 +24,7 @@ export class CoursesCardListComponent {
 
   async onEditCourse(course: Course){
 
+
     const newCourse = await openEditCourseDialog(
       this.dialog,
       {
