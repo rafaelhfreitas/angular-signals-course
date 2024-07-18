@@ -9,6 +9,8 @@ import {catchError, from, throwError} from "rxjs";
 import {toObservable, toSignal, outputToObservable, outputFromObservable} from "@angular/core/rxjs-interop";
 import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
 import { openEditCourseDialog } from '../edit-course-dialog/edit-course-dialog.component';
+import { LoadingService } from '../loading/loading.service';
+import { LoadingIndicatorComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'home',
@@ -16,7 +18,8 @@ import { openEditCourseDialog } from '../edit-course-dialog/edit-course-dialog.c
   imports: [
     MatTabGroup,
     MatTab,
-    CoursesCardListComponent
+    CoursesCardListComponent,
+    LoadingIndicatorComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -25,8 +28,9 @@ export class HomeComponent  {
 
 
     #courses = signal<Course[]>([]);
-    coursesService = inject(CoursesService);
     dialog = inject(MatDialog);
+    coursesService = inject(CoursesService);
+    loadingService = inject(LoadingService);
 
     beginnerCourses = computed(() => {
       const courses = this.#courses();
@@ -54,6 +58,7 @@ export class HomeComponent  {
     
     async loadCourses() {
       try{
+        this.loadingService.loadingOn();
         const courses = await this.coursesService.loadAllCourses();
         this.#courses.set(courses.sort(sortCoursesBySeqNo));
       } 
@@ -61,6 +66,8 @@ export class HomeComponent  {
         alert(`Error loading courses!`);
         console.error(error);
 
+      } finally {
+        this.loadingService.loadingOff();
       }
     }
 
