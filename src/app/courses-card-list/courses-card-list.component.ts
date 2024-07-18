@@ -19,6 +19,8 @@ export class CoursesCardListComponent {
 
   courseUpdated = output<Course>();
 
+  courseDeleted = output<string>();
+
   dialog = inject(MatDialog);
 
   constructor() {}
@@ -38,6 +40,12 @@ export class CoursesCardListComponent {
     console.log("course edited: ", newCourse);
 
     this.courseUpdated.emit(newCourse);
+  }
+
+
+
+  onCourseDeleted(course: Course) {
+    this.courseDeleted.emit(course.id);
   }
 
 }
