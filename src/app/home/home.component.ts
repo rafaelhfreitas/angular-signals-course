@@ -58,7 +58,6 @@ export class HomeComponent  {
     
     async loadCourses() {
       try{
-        this.loadingService.loadingOn();
         const courses = await this.coursesService.loadAllCourses();
         this.#courses.set(courses.sort(sortCoursesBySeqNo));
       } 
@@ -66,8 +65,6 @@ export class HomeComponent  {
         alert(`Error loading courses!`);
         console.error(error);
 
-      } finally {
-        this.loadingService.loadingOff();
       }
     }
 
