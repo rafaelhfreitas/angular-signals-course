@@ -89,8 +89,8 @@ export class HomeComponent  {
 
 
       } catch (error) {
+        this.messagesService.showMessage(`Error deleting courses!`, "error")
         console.error(error);
-        alert(`Error deleting course...`)
       }
     }
 
