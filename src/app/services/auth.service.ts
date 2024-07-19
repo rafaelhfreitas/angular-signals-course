@@ -20,6 +20,7 @@ export class AuthService {
   isLoggedIn = computed(() => !!this.user());
 
   http = inject(HttpClient);
+  router = inject(Router);
 
   async login(email: string, password: string): Promise<User> {
 
@@ -34,6 +35,13 @@ export class AuthService {
 
     return user;
 
+  }
+
+
+
+  async logout() {
+    this.#userSignal.set(null);
+    await this.router.navigate(["/login"]);
   }
 
 

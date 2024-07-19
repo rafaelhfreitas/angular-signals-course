@@ -16,7 +16,7 @@
       
 
       @if (isLoggedIn()) {
-        <a mat-list-item>
+        <a mat-list-item (click)="onLogout()">
           <mat-icon>exit_to_app</mat-icon>
           <span>Logout</span>
         </a>
