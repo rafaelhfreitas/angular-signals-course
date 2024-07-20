@@ -47,10 +47,9 @@ export class EditCourseDialogComponent {
     this.form.patchValue({
       title: this.data?.course?.title,
       longDescription: this.data?.course?.longDescription,
-      //category: this.data?.course?.category,
       iconUrl: this.data?.course?.iconUrl
     });
-    this.category.set(this.data?.course!.category);
+    this.category.set(this.data?.course?.category ?? "BEGINNER");
     effect(() => {
       console.log(`Course category bi-directional biding: ${this.category()}`);
     });

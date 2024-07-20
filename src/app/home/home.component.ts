@@ -104,6 +104,10 @@ export class HomeComponent  {
         }
       )
 
+      if(!newCourse) {
+        return;
+      }
+
       const newCourses = [
         ...this.#courses(),
         newCourse
