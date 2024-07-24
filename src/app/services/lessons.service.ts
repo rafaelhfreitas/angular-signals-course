@@ -14,7 +14,7 @@ export class LessonsService {
   env = environment;
   http = inject(HttpClient);
 
-  
+
   async loadLessons(config: {
     courseId?: string,
     query?: string;
@@ -32,7 +32,7 @@ export class LessonsService {
     }
 
     const lessons$ = this.http.get<GetLessonsResponse>(
-      `${this.env.apiRoot}/search-lessosn`,
+      `${this.env.apiRoot}/search-lessons`,
       {
         params
       }
