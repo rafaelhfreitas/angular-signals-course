@@ -13,7 +13,7 @@ export const routes: Routes = [
     canActivate: [isUserAuthenticate]
   },
   {
-    'path': 'courses/:courseId',
+    path: 'courses/:courseId',
     component: CourseComponent,
     canActivate: [isUserAuthenticate],
     resolve: {
