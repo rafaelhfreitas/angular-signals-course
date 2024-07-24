@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { Course } from '../models/course.model';
 
 @Component({
   selector: 'course',
@@ -9,4 +10,9 @@ import { Component } from '@angular/core';
 })
 export class CourseComponent {
 
+
+    course = signal<Course | null >(null);
+
+
+    lessons = signal<Lesson[]>([]);
 }
