@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { Course } from '../models/course.model';
+import { Lesson } from '../models/lesson.model';
 
 @Component({
   selector: 'course',
