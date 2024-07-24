@@ -1,4 +1,4 @@
-import {afterNextRender, Component, computed, effect, EffectRef, inject, Injector, OnInit, signal} from '@angular/core';
+import {afterNextRender, Component, computed, effect, EffectRef, ElementRef, inject, Injector, OnInit, signal, viewChild} from '@angular/core';
 import {CoursesService} from "../services/courses.service";
 import {Course, sortCoursesBySeqNo} from "../models/course.model";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
@@ -11,6 +11,7 @@ import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
 import { openEditCourseDialog } from '../edit-course-dialog/edit-course-dialog.component';
 import { LoadingService } from '../loading/loading.service';
 import { LoadingIndicatorComponent } from '../loading/loading.component';
+import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'home',
@@ -18,6 +19,7 @@ import { LoadingIndicatorComponent } from '../loading/loading.component';
   imports: [
     MatTabGroup,
     MatTab,
+    MatTooltip,
     CoursesCardListComponent,
     LoadingIndicatorComponent
   ],
@@ -32,6 +34,11 @@ export class HomeComponent  {
     coursesService = inject(CoursesService);
     messagesService = inject(MessagesService);
 
+    beginnerList = viewChild("beginnerList", {read: MatTooltip});
+
+    // another way 
+    //beginnerList = viewChild<CoursesCardListComponent>("beginnerList");
+
     beginnerCourses = computed(() => {
       const courses = this.#courses();
       return courses.filter(course => course.category === 'BEGINNER')
@@ -44,6 +51,11 @@ export class HomeComponent  {
     })
 
     constructor() {
+
+
+      effect(() => {
+        console.log(`beginnerList comp:`, this.beginnerList());
+      })
 
       effect(() => {
         console.log(`Beginner courses`, this.beginnerCourses());

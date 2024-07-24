@@ -4,6 +4,7 @@ import {Course} from "../models/course.model";
 import {MatDialog} from "@angular/material/dialog";
 import { openEditCourseDialog } from '../edit-course-dialog/edit-course-dialog.component';
 
+
 @Component({
   selector: 'courses-card-list',
   standalone: true,
