@@ -28,16 +28,17 @@ import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
 })
 export class HomeComponent  {
 
-
     #courses = signal<Course[]>([]);
     dialog = inject(MatDialog);
     coursesService = inject(CoursesService);
     messagesService = inject(MessagesService);
 
     beginnerList = viewChild("beginnerList", {read: MatTooltip});
-
     // another way 
     //beginnerList = viewChild<CoursesCardListComponent>("beginnerList");
+
+    courses$ = toObservable(this.#courses);
+
 
     beginnerCourses = computed(() => {
       const courses = this.#courses();
@@ -52,14 +53,17 @@ export class HomeComponent  {
 
     constructor() {
 
+      // this.courses$.subscribe(
+      //   courses => console.log(`courses$: `, courses)
+      // );
 
       effect(() => {
-        console.log(`beginnerList comp:`, this.beginnerList());
+        //console.log(`beginnerList comp:`, this.beginnerList());
       })
 
       effect(() => {
-        console.log(`Beginner courses`, this.beginnerCourses());
-        console.log(`Advanced courses`, this.advancedCourses());
+        // console.log(`Beginner courses`, this.beginnerCourses());
+        // console.log(`Advanced courses`, this.advancedCourses());
 
       })
 
@@ -129,6 +133,12 @@ export class HomeComponent  {
     }
 
 
+    injector = inject(Injector);
+
+    onToObservableExample() {
+      const courses$ = toObservable(this.#courses, {injector: this.injector});
+      courses$.subscribe(courses =>  console.log(`courses$: `, courses$))
+    }
 
 
 
