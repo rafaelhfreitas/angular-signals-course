@@ -37,7 +37,7 @@ export class HomeComponent  {
     // another way 
     //beginnerList = viewChild<CoursesCardListComponent>("beginnerList");
 
-    courses$ = toObservable(this.#courses);
+    //courses$ = toObservable(this.#courses);
 
 
     beginnerCourses = computed(() => {
@@ -134,6 +134,17 @@ export class HomeComponent  {
 
 
     injector = inject(Injector);
+    courses$ = from(this.coursesService.loadAllCourses());
+    
+    onToSignalExample() {
+      const courses = toSignal(this.courses$, {injector: this.injector});
+      effect(() => {
+        console.log(`courses: `, courses());
+      }, {
+        injector: this.injector
+      })
+    }
+
 
     onToObservableExample() {
       // const courses$ = toObservable(this.#courses, {injector: this.injector});
