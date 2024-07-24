@@ -1,4 +1,4 @@
-import {Component, input, model} from '@angular/core';
+import {Component, contentChild, contentChildren, effect, ElementRef, input, model} from '@angular/core';
 import {CourseCategory} from "../models/course-category.model";
 
 @Component({
@@ -16,9 +16,14 @@ export class CourseCategoryComboboxComponent {
   value = model.required<CourseCategory>();
 
 
+  title = contentChildren<ElementRef>("title");
+
+
   constructor() {
-  }
-  
+    effect( () => {
+      console.log("title signal: ", this.title());
+    })
+  }  
 
   onCategoryChange(category: string) {
     this.value.set(category as CourseCategory);
