@@ -43,5 +43,12 @@ export class LessonsComponent {
   }
 
 
+  onLessonUpdated(lesson: Lesson) {
+    this.lessons.update(lessons => 
+      lessons.map(l => l.id === lesson.id ? lesson: l )
+    );
+    
+  }
+
 
 }

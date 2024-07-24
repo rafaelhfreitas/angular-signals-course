@@ -15,6 +15,18 @@ export class LessonsService {
   http = inject(HttpClient);
 
 
+  async saveLesson(lessonId: string, changes: Partial<Lesson>): Promise<Lesson> {
+
+    const saveLesson$ = this.http.put<Lesson>(
+      `${this.env.apiRoot}/lessons/${lessonId}`, 
+      changes
+    );
+
+    return firstValueFrom(saveLesson$);
+
+  }
+
+
   async loadLessons(config: {
     courseId?: string,
     query?: string;
