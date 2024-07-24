@@ -16,5 +16,15 @@ import {MessagesService} from "../../messages/messages.service";
 export class LessonDetailComponent {
 
 
+  lesson = input.required<Lesson | null>();
+  lessonUpdated = output<Lesson>();
+
+  cancel = output();
+
+  onCancel() {
+    this.cancel.emit(); 
+    
+  }
 
 }
+
