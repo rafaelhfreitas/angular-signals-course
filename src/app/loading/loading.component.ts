@@ -11,6 +11,13 @@ import {LoadingService} from "./loading.service";
 })
 export class LoadingIndicatorComponent {
 
+  loadingService = inject(LoadingService);
+  loading = this.loadingService.loading;
+  
 
+  constructor(){
+    console.log('create loading indicator')
+  }
+  
 
 }
